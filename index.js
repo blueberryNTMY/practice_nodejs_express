@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const config = require('./config');
+const mainRoutes = require('./routes/main')
 
 const app = express();
 
@@ -20,9 +21,7 @@ app.set('views', 'views');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.route('/', mainRoutes);
 
 async function init() {
   await mongoose.connect(config.get('dbURL'), {
